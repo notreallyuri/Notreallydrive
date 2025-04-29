@@ -1,4 +1,7 @@
+import { drizzle } from "drizzle-orm/singlestore";
 import { createPool, type Pool } from "mysql2";
+
+import * as schema from "./schema";
 
 import { env } from "~/env";
 
@@ -23,3 +26,5 @@ if (env.NODE_ENV !== "production") globalForDb.conn = conn;
 conn.addListener("error", (err) => {
   console.error("Database connection error:", err);
 });
+
+export const db = drizzle(conn, { schema });
