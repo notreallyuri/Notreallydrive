@@ -1,25 +1,26 @@
 import "server-only";
 
 import { files_table, folders_tables } from "./schema";
+import type { File, Folder } from "~/types/file";
 import { eq } from "drizzle-orm";
 import { db } from ".";
 
 export const QUERIES = {
-  getFolders: function (folderId: number) {
+  getFolders: (folderId: number) => {
     return db
       .select()
       .from(folders_tables)
       .where(eq(folders_tables.parent, folderId));
   },
 
-  getFiles: function (folderId: number) {
+  getFiles: (folderId: number) => {
     return db
       .select()
       .from(files_table)
       .where(eq(files_table.parent, folderId));
   },
 
-  getCurrentParents: async function (folderId: number) {
+  getCurrentParents: async (folderId: number) => {
     const parents = [];
     let currentId: number | null = folderId;
     while (currentId !== null) {
@@ -37,5 +38,11 @@ export const QUERIES = {
     }
 
     return parents;
+  },
+};
+
+export const MUTATIONS = {
+  createFile: async (input: { file: Omit<File, "id">; userId: string }) => {
+    return await db.insert(files_table).values({ ...input.file, parent: 1 });
   },
 };
