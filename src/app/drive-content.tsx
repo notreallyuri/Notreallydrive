@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import type { File, Folder } from "~/types/file";
 import { Upload, ChevronRight } from "lucide-react";
 import { Button } from "~/components/ui/button";
@@ -10,15 +9,8 @@ import Link from "next/link";
 export default function DriveContents(props: {
   files: File[];
   folders: Folder[];
+  parents: Folder[];
 }) {
-  const [currentFolder, setCurrentFolder] = useState<number>(1);
-
-  const handleFolderClick = (folderId: number) => {
-    setCurrentFolder(folderId);
-  };
-
-  const breadcrumbs: unknown[] = [];
-
   const handleUpload = () => {
     alert("Upload functionality would be implemented here");
   };
@@ -34,7 +26,7 @@ export default function DriveContents(props: {
             >
               My Drive
             </Link>
-            {breadcrumbs.map((folder, index) => (
+            {props.parents.map((folder, index) => (
               <div key={folder.id} className="flex items-center">
                 <ChevronRight className="mx-2 text-gray-500" size={16} />
                 <Link
