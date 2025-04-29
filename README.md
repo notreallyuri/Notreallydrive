@@ -4,7 +4,7 @@
 
 - [x] Setup Datadabase and data model
 - [x] Move folder open state to URL
-- [ ] Add Authentication and Authorization
+- [x] Add Authentication
 - [ ] Add file uploading and downloading
 - [ ] Add analytics
 
@@ -16,6 +16,6 @@ Finished connecting database, next steps:
 - [x] Render them in the UI
 - [x] Push and make sure everything works
 ---
-- [ ] Change folder to link components, remove all client state
-- [ ] Clean up the database and data fetching patterns
+- [x] Change folder to link components, remove all client state
+- [x] Clean up the database and data fetching patterns
 - [ ] Real homepage
