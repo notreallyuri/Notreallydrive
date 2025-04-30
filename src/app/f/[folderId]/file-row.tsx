@@ -1,6 +1,13 @@
 import Link from "next/link";
 import type { Folder, File } from "~/types/file";
-import { File as FileIcon, Folder as FolderIcon } from "lucide-react";
+import {
+  File as FileIcon,
+  Folder as FolderIcon,
+  Trash2Icon,
+} from "lucide-react";
+import { Button } from "~/components/ui/button";
+import { deleteFile } from "~/server/actions";
+import { DeleteFileButton } from "~/components/buttons";
 
 export function FileRow(props: { file: File }) {
   const { file } = props;
@@ -21,16 +28,17 @@ export function FileRow(props: { file: File }) {
             {file.name}
           </a>
         </div>
-        <div className="col-span-3 text-gray-400">{"file"}</div>
-        <div className="col-span-3 text-gray-400">{file.size}</div>
+        <div className="col-span-2 text-gray-400">{"file"}</div>
+        <div className="col-span-2 text-gray-400">{file.size}</div>
+        <div className="col-span-2 text-gray-400 flex justify-end">
+          <DeleteFileButton file={file} />
+        </div>
       </div>
     </li>
   );
 }
 
-export function FolderRow(props: {
-  folder: Folder;
-}) {
+export function FolderRow(props: { folder: Folder }) {
   const { folder } = props;
 
   return (
@@ -48,8 +56,8 @@ export function FolderRow(props: {
             {folder.name}
           </Link>
         </div>
-        <div className="col-span-3 text-gray-400"></div>
-        <div className="col-span-3 text-gray-400"></div>
+        <div className="col-span-2 text-gray-400"></div>
+        <div className="col-span-2 text-gray-400"></div>
       </div>
     </li>
   );

@@ -1,20 +1,29 @@
-"use client";
 import type { File, Folder } from "~/types/file";
-import { Upload, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { FileRow, FolderRow } from "./file-row";
 import Link from "next/link";
 import { SignedIn, UserButton, SignInButton, SignedOut } from "@clerk/nextjs";
-import { UploadButton } from "~/components/uploadthing";
-import { useRouter } from "next/navigation";
+import { Button } from "~/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "~/components/ui/dialog";
+import { Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
+import { createFolder } from "~/server/actions";
+import { FileUploadButton } from "~/components/buttons";
 
-export default function DriveContents(props: {
+export default async function DriveContents(props: {
   files: File[];
   folders: Folder[];
   parents: Folder[];
   currentFolderId: number;
 }) {
-  const navigate = useRouter();
-
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 p-8">
       <div className="max-w-6xl mx-auto">
@@ -51,8 +60,9 @@ export default function DriveContents(props: {
           <div className="px-6 py-4 border-b border-gray-700">
             <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-400">
               <div className="col-span-6">Name</div>
-              <div className="col-span-3">Type</div>
-              <div className="col-span-3">Size</div>
+              <div className="col-span-2">Type</div>
+              <div className="col-span-2">Size</div>
+              <div className="col-span-2 text-right">Actions</div>
             </div>
           </div>
           <ul>
@@ -65,11 +75,32 @@ export default function DriveContents(props: {
             ))}
           </ul>
         </div>
-        <UploadButton
-          endpoint="fileUploader"
-          onClientUploadComplete={() => navigate.refresh()}
-          input={{ folderId: props.currentFolderId }}
-        />
+        <FileUploadButton currentFolderId={props.currentFolderId} />
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>New Folder</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Create folder</DialogTitle>
+              <DialogDescription>Create a new directory</DialogDescription>
+            </DialogHeader>
+            <form action={createFolder}>
+              <Label htmlFor="name">Folder Name</Label>
+              <Input name="name" id="name" required />
+
+              <input
+                type="hidden"
+                name="parent"
+                value={props.currentFolderId}
+              />
+
+              <DialogFooter>
+                <Button type="submit">Create</Button>
+              </DialogFooter>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

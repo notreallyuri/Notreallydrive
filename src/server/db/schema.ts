@@ -23,6 +23,7 @@ export const files_table = createTable(
     name: text("name").notNull(),
     size: int("size").notNull(),
     url: text("url").notNull(),
+    key: text("file_key").notNull(),
     parent: bigint("parent", { mode: "number", unsigned: true }),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
@@ -42,7 +43,6 @@ export const folders_tables = createTable(
       .autoincrement(),
 
     ownerId: text("owner_id").notNull(),
-    // This is the userId of the owner of the folder
     name: text("name").notNull(),
     parent: bigint("parent", { mode: "number", unsigned: true }),
     createdAt: timestamp("created_at").defaultNow().notNull(),

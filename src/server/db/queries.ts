@@ -56,6 +56,7 @@ export const MUTATIONS = {
       name: string;
       size: number;
       url: string;
+      key: string;
       parent: number;
     };
     userId: string;
