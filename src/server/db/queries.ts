@@ -1,8 +1,7 @@
 import "server-only";
 
 import { files_table, folders_tables } from "./schema";
-import type { File, Folder } from "~/types/file";
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { db } from ".";
 
 export const QUERIES = {
@@ -10,7 +9,8 @@ export const QUERIES = {
     return db
       .select()
       .from(folders_tables)
-      .where(eq(folders_tables.parent, folderId));
+      .where(eq(folders_tables.parent, folderId))
+      .orderBy(asc(folders_tables.name));
   },
 
   getFiles: (folderId: number) => {

@@ -10,7 +10,7 @@
 
 ## Note from 4-29-2024
 
-Finished connecting database, next steps:
+### Finished connecting database, next steps:
 
 - [x] Update schema to show files and folders
 - [x] Manually insert examples
@@ -27,5 +27,6 @@ Finished connecting database, next steps:
 
 - [x] Add "ownershipt" to folders and files
 - [x] Upload files to the right folder
+- [x] Create sort order and enforce sort order
 - [ ] Delete files button
 - [ ] Allow files that aren't images to be uploaded
