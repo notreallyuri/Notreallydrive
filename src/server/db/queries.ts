@@ -39,10 +39,29 @@ export const QUERIES = {
 
     return parents;
   },
+
+  getFolderById: async (folderId: number) => {
+    const folder = await db
+      .select()
+      .from(folders_tables)
+      .where(eq(folders_tables.id, folderId));
+
+    return folder[0];
+  },
 };
 
 export const MUTATIONS = {
-  createFile: async (input: { file: Omit<File, "id">; userId: string }) => {
-    return await db.insert(files_table).values({ ...input.file, parent: 1 });
+  createFile: async (input: {
+    file: {
+      name: string;
+      size: number;
+      url: string;
+      parent: number;
+    };
+    userId: string;
+  }) => {
+    return await db
+      .insert(files_table)
+      .values({ ...input.file, ownerId: input.userId });
   },
 };

@@ -25,6 +25,7 @@ Finished connecting database, next steps:
 
 ---
 
-- [ ] Upload files to the right folder
+- [x] Add "ownershipt" to folders and files
+- [x] Upload files to the right folder
 - [ ] Delete files button
 - [ ] Allow files that aren't images to be uploaded
