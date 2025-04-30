@@ -6,7 +6,7 @@
 - [x] Move folder open state to URL
 - [x] Add Authentication
 - [x] Add uploadthing
-- [ ] Add analytics
+- [x] Add analytics
 
 ## Note from 4-29-2024
 
