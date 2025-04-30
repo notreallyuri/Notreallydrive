@@ -85,8 +85,10 @@ export default async function DriveContents(props: {
               <DialogTitle>Create folder</DialogTitle>
               <DialogDescription>Create a new directory</DialogDescription>
             </DialogHeader>
-            <form action={createFolder}>
-              <Label htmlFor="name">Folder Name</Label>
+            <form action={createFolder} className="space-y-2">
+              <Label htmlFor="name" className="font-medium">
+                Folder Name
+              </Label>
               <Input name="name" id="name" required />
 
               <input
@@ -95,7 +97,7 @@ export default async function DriveContents(props: {
                 value={props.currentFolderId}
               />
 
-              <DialogFooter>
+              <DialogFooter className="mt-2">
                 <Button type="submit">Create</Button>
               </DialogFooter>
             </form>
