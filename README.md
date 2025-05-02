@@ -28,5 +28,5 @@
 - [x] Add "ownershipt" to folders and files
 - [x] Upload files to the right folder
 - [x] Create sort order and enforce sort order
-- [ ] Delete files button
+- [x] Delete files button
 - [ ] Allow files that aren't images to be uploaded
