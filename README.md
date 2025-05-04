@@ -21,7 +21,7 @@
 
 - [x] Change folder to link components, remove all client state
 - [x] Clean up the database and data fetching patterns
-- [ ] Real homepage
+- [x] Real homepage
 
 ---
 
@@ -30,3 +30,10 @@
 - [x] Create sort order and enforce sort order
 - [x] Delete files button
 - [ ] Allow files that aren't images to be uploaded
+
+## Note from 5-4-2025
+
+- [ ] Implement Folder deletion (Will need to think a little bit)
+- [ ] Rework driver screen (Using shadcn tables)
+- [ ] Update homepage
+- [ ] Visual implementation for folder/file deletion (Probably using a client-side hook)
