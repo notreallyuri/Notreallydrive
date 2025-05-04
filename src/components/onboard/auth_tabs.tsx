@@ -19,6 +19,7 @@ export function AuthTabs() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const tab = searchParams.get("tab") || "signin";
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleTabChange = (value: string) => {
     const newParams = new URLSearchParams(searchParams);
@@ -62,9 +63,8 @@ export function AuthTabs() {
               onClick={async () => {
                 await authClient.signIn.social({
                   provider: "github",
+                  callbackURL: "/redirect",
                 });
-
-                router.push("/");
               }}
             >
               Github
@@ -76,9 +76,8 @@ export function AuthTabs() {
               onClick={async () => {
                 await authClient.signIn.social({
                   provider: "discord",
+                  callbackURL: "/redirect",
                 });
-
-                router.push("/");
               }}
             >
               Discord

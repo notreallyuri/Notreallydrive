@@ -8,8 +8,8 @@ export default {
   dbCredentials: {
     host: env.DB_HOST,
     port: Number.parseInt(env.DB_PORT),
-    password: env.DB_PASSWORD,
     user: env.DB_USER,
+    password: env.DB_PASSWORD,
     database: env.DB_NAME,
     ssl: false,
   },

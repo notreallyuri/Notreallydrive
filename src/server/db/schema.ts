@@ -6,7 +6,8 @@ import {
   integer,
   uuid,
   boolean,
-  bigint,
+  type AnyPgColumn,
+  foreignKey,
 } from "drizzle-orm/pg-core";
 
 export const createTable = pgTableCreator((name) => `drive_tutorial_${name}`);
@@ -15,13 +16,18 @@ export const files_table = createTable(
   "files_table",
   {
     id: uuid("id").defaultRandom().primaryKey(),
-    ownerId: text("owner_id").notNull(),
-
+    ownerId: text("owner_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
     name: text("name").notNull(),
     size: integer("size").notNull(),
     url: text("url").notNull(),
     key: text("file_key").notNull(),
-    parent: text("parent_id"),
+    parent: uuid("parent_id")
+      .notNull()
+      .references(() => folders_tables.id, {
+        onDelete: "cascade",
+      }),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (t) => {
@@ -37,15 +43,24 @@ export const folders_tables = createTable(
   {
     id: uuid("id").defaultRandom().primaryKey(),
 
-    ownerId: text("owner_id").notNull(),
+    ownerId: text("owner_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
     name: text("name").notNull(),
-    parent: text("parent_id"),
+    parent: uuid("parent_id").references((): AnyPgColumn => folders_tables.id, {
+      onDelete: "cascade",
+    }),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (t) => {
     return [
       index("folders_parent_index").on(t.parent),
       index("folders_owner_id_index").on(t.ownerId),
+      foreignKey({
+        columns: [t.parent],
+        foreignColumns: [t.id],
+        name: "custom_fk",
+      }),
     ];
   },
 );

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -89,7 +90,9 @@ export default async function DriveContents(props: {
               />
 
               <DialogFooter className="mt-2">
-                <Button type="submit">Create</Button>
+                <DialogClose asChild>
+                  <Button type="submit">Create</Button>
+                </DialogClose>
               </DialogFooter>
             </form>
           </DialogContent>

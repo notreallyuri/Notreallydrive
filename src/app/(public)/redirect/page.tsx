@@ -1,6 +1,5 @@
 import { redirect } from "next/navigation";
 import { getRootFolderForUser, createRootFolder } from "@/server/actions";
-import { authClient } from "@/lib/auth-client";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 
