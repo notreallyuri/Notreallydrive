@@ -1,28 +1,28 @@
 import Link from "next/link";
-import type { Folder, File } from "~/types/file";
+import type { Folder, File } from "@/types/file";
 import {
   File as FileIcon,
   Folder as FolderIcon,
   Trash2Icon,
 } from "lucide-react";
-import { Button } from "~/components/ui/button";
-import { deleteFile } from "~/server/actions";
-import { DeleteFileButton } from "~/components/buttons";
+import { DeleteFileButton } from "@/components/buttons";
 
 export function FileRow(props: { file: File }) {
+  "use client";
   const { file } = props;
 
   return (
     <li
       key={file.id}
-      className="px-6 py-4 border-b border-gray-700 hover:bg-gray-750"
+      className="hover:bg-gray-750 border-b border-gray-700 px-6 py-4"
     >
-      <div className="grid grid-cols-12 gap-4 items-center">
+      <div className="grid grid-cols-12 items-center gap-4">
         <div className="col-span-6 flex items-center">
           <a
             href={file.url}
-            className="flex items-center text-gray-100 hover:text-blue-400 cursor-pointer"
+            className="flex cursor-pointer items-center text-gray-100 hover:text-blue-400"
             target="_blank"
+            rel="noreferrer"
           >
             <FileIcon className="mr-3" size={20} />
             {file.name}
@@ -30,7 +30,7 @@ export function FileRow(props: { file: File }) {
         </div>
         <div className="col-span-2 text-gray-400">{"file"}</div>
         <div className="col-span-2 text-gray-400">{file.size}</div>
-        <div className="col-span-2 text-gray-400 flex justify-end">
+        <div className="col-span-2 flex justify-end text-gray-400">
           <DeleteFileButton file={file} />
         </div>
       </div>
@@ -44,20 +44,20 @@ export function FolderRow(props: { folder: Folder }) {
   return (
     <li
       key={folder.id}
-      className="px-6 py-4 border-b border-gray-700 hover:bg-gray-750"
+      className="hover:bg-gray-750 border-b border-gray-700 px-6 py-4"
     >
-      <div className="grid grid-cols-12 gap-4 items-center">
+      <div className="grid grid-cols-12 items-center gap-4">
         <div className="col-span-6 flex items-center">
           <Link
             href={`/f/${folder.id}`}
-            className="flex items-center text-gray-100 cursor-pointer hover:text-blue-400"
+            className="flex cursor-pointer items-center text-gray-100 hover:text-blue-400"
           >
             <FolderIcon className="mr-3" size={20} />
             {folder.name}
           </Link>
         </div>
-        <div className="col-span-2 text-gray-400"></div>
-        <div className="col-span-2 text-gray-400"></div>
+        <div className="col-span-2 text-gray-400" />
+        <div className="col-span-2 text-gray-400" />
       </div>
     </li>
   );

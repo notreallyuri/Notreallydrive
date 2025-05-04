@@ -1,9 +1,9 @@
 "use client";
-import { UploadButton } from "~/components/uploadthing";
+import { UploadButton } from "@/components/uploadthing";
 import { useRouter } from "next/navigation";
-import { deleteFile } from "~/server/actions";
+import { deleteFile } from "@/server/actions";
 import { Button } from "./ui/button";
-import type { File } from "~/types/file";
+import type { File } from "@/types/file";
 import { Trash2Icon } from "lucide-react";
 
 export const DeleteFileButton = ({ file }: { file: File }) => {
@@ -27,7 +27,7 @@ export const DeleteFileButton = ({ file }: { file: File }) => {
 export function FileUploadButton({
   currentFolderId,
 }: {
-  currentFolderId: number;
+  currentFolderId: string;
 }) {
   const navigate = useRouter();
 

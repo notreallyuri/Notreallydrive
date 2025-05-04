@@ -1,8 +1,9 @@
-import { auth } from "@clerk/nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
-import { MUTATIONS, QUERIES } from "~/server/db/queries";
+import { MUTATIONS, QUERIES } from "@/server/db/queries";
+import { headers } from "next/headers";
 import { z } from "zod";
+import { auth } from "@/lib/auth";
 
 const f = createUploadthing();
 
@@ -15,21 +16,24 @@ export const ourFileRouter = {
   })
     .input(
       z.object({
-        folderId: z.number(),
-      })
+        folderId: z.string(),
+      }),
     )
     .middleware(async ({ input }) => {
-      const user = await auth();
-      if (!user.userId) throw new UploadThingError("Unauthorized");
+      const session = await auth.api.getSession({ headers: await headers() });
+
+      const user = session?.user;
+
+      if (!user) throw new UploadThingError("Unauthorized");
 
       const folder = await QUERIES.getFolderById(input.folderId);
       if (!folder) throw new UploadThingError("Folder not found");
 
-      if (folder.ownerId !== user.userId) {
+      if (folder.ownerId !== user.id) {
         throw new UploadThingError("Unauthorized");
       }
 
-      return { userId: user.userId, parentId: input.folderId };
+      return { userId: user.id, parentId: input.folderId };
     })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("Upload complete for userId:", metadata.userId);

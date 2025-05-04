@@ -5,7 +5,7 @@ import { asc, eq } from "drizzle-orm";
 import { db } from ".";
 
 export const QUERIES = {
-  getFolders: (folderId: number) => {
+  getFolders: (folderId: string) => {
     return db
       .select()
       .from(folders_tables)
@@ -13,16 +13,16 @@ export const QUERIES = {
       .orderBy(asc(folders_tables.name));
   },
 
-  getFiles: (folderId: number) => {
+  getFiles: (folderId: string) => {
     return db
       .select()
       .from(files_table)
       .where(eq(files_table.parent, folderId));
   },
 
-  getCurrentParents: async (folderId: number) => {
+  getCurrentParents: async (folderId: string) => {
     const parents = [];
-    let currentId: number | null = folderId;
+    let currentId: string | null = folderId;
     while (currentId !== null) {
       const folder = await db
         .selectDistinct()
@@ -40,13 +40,13 @@ export const QUERIES = {
     return parents;
   },
 
-  getFolderById: async (folderId: number) => {
-    const folder = await db
+  getFolderById: async (folderId: string) => {
+    const [folder] = await db
       .select()
       .from(folders_tables)
       .where(eq(folders_tables.id, folderId));
 
-    return folder[0];
+    return folder;
   },
 };
 
@@ -57,7 +57,7 @@ export const MUTATIONS = {
       size: number;
       url: string;
       key: string;
-      parent: number;
+      parent: string;
     };
     userId: string;
   }) => {

@@ -1,26 +1,27 @@
 "use server";
 
-import { and, eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { db } from "./db";
 import { files_table, folders_tables } from "./db/schema";
-import { auth } from "@clerk/nextjs/server";
 import { UTApi } from "uploadthing/server";
 import { cookies } from "next/headers";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-export async function deleteFile(fileId: number) {
-  const session = await auth();
+export const deleteFile = async (id: string) => {
+  const session = await auth.api.getSession({ headers: await headers() });
+  const user = session?.user;
+
   const utApi = new UTApi();
 
-  if (!session.userId) {
+  if (!user) {
     return { error: "Unauthorized" };
   }
 
   const [file] = await db
     .select()
     .from(files_table)
-    .where(
-      and(eq(files_table.id, fileId), eq(files_table.ownerId, session.userId))
-    );
+    .where(and(eq(files_table.id, id), eq(files_table.ownerId, user.id)));
 
   if (!file) {
     return { error: "File not found" };
@@ -30,7 +31,7 @@ export async function deleteFile(fileId: number) {
 
   console.log(utRes);
 
-  const dbRes = await db.delete(files_table).where(eq(files_table.id, fileId));
+  const dbRes = await db.delete(files_table).where(eq(files_table.id, id));
 
   console.log(dbRes);
 
@@ -38,22 +39,45 @@ export async function deleteFile(fileId: number) {
   c.set("force-refresh", JSON.stringify(Math.random()));
 
   return { success: true };
-}
+};
 
-export async function createFolder(formData: FormData) {
+export const updateFile = async () => {};
+
+export const createFolder = async (formData: FormData) => {
   const name = formData.get("name") as string;
-  const parent = parseInt(formData.get("parent") as string);
+  const parent = formData.get("parent") as string;
 
-  const session = await auth();
+  const session = await auth.api.getSession({ headers: await headers() });
+  const user = session?.user;
 
-  if (!session.userId) {
+  if (!user) {
     throw new Error("User not authenticated");
   }
 
-  await db
-    .insert(folders_tables)
-    .values({ name, parent, ownerId: session.userId });
+  await db.insert(folders_tables).values({ name, parent, ownerId: user.id });
 
   const c = await cookies();
   c.set("force-refresh", JSON.stringify(Math.random()));
-}
+};
+
+export const getRootFolderForUser = async (userId: string) => {
+  const [folder] = await db
+    .select()
+    .from(folders_tables)
+    .where(
+      and(eq(folders_tables.ownerId, userId), isNull(folders_tables.parent)),
+    );
+
+  return folder;
+};
+
+export const createRootFolder = async (userId: string) => {
+  const [folder] = await db
+    .insert(folders_tables)
+    .values({ name: "root", ownerId: userId })
+    .returning();
+
+  return folder;
+};
+
+export const updateFolder = async () => {};

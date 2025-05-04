@@ -3,13 +3,13 @@ import posthog from "posthog-js";
 import { PostHogProvider as PHProvider } from "posthog-js/react";
 import { useEffect } from "react";
 import dynamicLoader from "next/dynamic";
-import { env } from "~/env.js";
+import { env } from "@/env.js";
 
 const SuspendedPostHogPageView = dynamicLoader(
   () => import("./pageview-tracker"),
   {
     ssr: false,
-  }
+  },
 );
 
 export function PostHogProvider({ children }: { children: React.ReactNode }) {

@@ -1,9 +1,9 @@
-import "~/styles/globals.css";
+import "@/styles/globals.css";
 
-import { ClerkProvider } from "@clerk/nextjs";
 import { PostHogProvider } from "./_providers/posthog-provider";
-import { type Metadata } from "next";
 import { Geist } from "next/font/google";
+import type { Metadata } from "next";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Notreallydrive",
@@ -20,12 +20,13 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ClerkProvider>
-      <PostHogProvider>
-        <html lang="en" className={`${geist.variable}`}>
-          <body>{children}</body>
-        </html>
-      </PostHogProvider>
-    </ClerkProvider>
+    <PostHogProvider>
+      <html lang="en" className={`${geist.variable}`}>
+        <body>
+          {children}
+          <Toaster />
+        </body>
+      </html>
+    </PostHogProvider>
   );
 }

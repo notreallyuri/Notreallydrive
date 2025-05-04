@@ -1,9 +1,8 @@
-import type { File, Folder } from "~/types/file";
+import type { File, Folder } from "@/types/file";
 import { ChevronRight } from "lucide-react";
 import { FileRow, FolderRow } from "./file-row";
 import Link from "next/link";
-import { SignedIn, UserButton, SignInButton, SignedOut } from "@clerk/nextjs";
-import { Button } from "~/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -12,26 +11,26 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "~/components/ui/dialog";
-import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
-import { createFolder } from "~/server/actions";
-import { FileUploadButton } from "~/components/buttons";
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { createFolder } from "@/server/actions";
+import { FileUploadButton } from "@/components/buttons";
 
 export default async function DriveContents(props: {
   files: File[];
   folders: Folder[];
   parents: Folder[];
-  currentFolderId: number;
+  currentFolderId: string;
 }) {
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-6">
+    <div className="min-h-screen bg-gray-900 p-8 text-gray-100">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center">
             <Link
               href="/f/1"
-              className="text-gray-300 hover:text-blue-500 cursor-pointer mr-2"
+              className="mr-2 cursor-pointer text-gray-300 hover:text-blue-500"
             >
               My Drive
             </Link>
@@ -40,24 +39,16 @@ export default async function DriveContents(props: {
                 <ChevronRight className="mx-2 text-gray-500" size={16} />
                 <Link
                   href={`/f/${folder.id}`}
-                  className="text-gray-300 hover:text-blue-500 cursor-pointer"
+                  className="cursor-pointer text-gray-300 hover:text-blue-500"
                 >
                   {folder.name}
                 </Link>
               </div>
             ))}
           </div>
-          <div>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-            <SignedOut>
-              <SignInButton />
-            </SignedOut>
-          </div>
         </div>
-        <div className="bg-gray-800 rounded-lg shadow-xl">
-          <div className="px-6 py-4 border-b border-gray-700">
+        <div className="rounded-lg bg-gray-800 shadow-xl">
+          <div className="border-b border-gray-700 px-6 py-4">
             <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-400">
               <div className="col-span-6">Name</div>
               <div className="col-span-2">Type</div>
