@@ -1,9 +1,12 @@
 import { AuthTabs } from "@/components/onboard/auth_tabs";
+import { Suspense } from "react";
 
 export default function AuthPage() {
   return (
     <div>
-      <AuthTabs />
+      <Suspense fallback={null}>
+        <AuthTabs />
+      </Suspense>
     </div>
   );
 }
