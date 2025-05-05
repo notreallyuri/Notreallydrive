@@ -56,7 +56,7 @@ export function AuthTabs() {
             or
             <div className="h-0.25 w-30 bg-black/25 dark:bg-white/50" />
           </div>
-          <CardFooter className="grid grid-cols-3 gap-6">
+          <CardFooter className="grid grid-cols-2 gap-6">
             <Button
               className="w-full cursor-pointer"
               variant={"outline"}
