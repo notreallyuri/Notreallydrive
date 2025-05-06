@@ -1,24 +1,7 @@
 "use client";
 
 import type { File, Folder } from "@/types/file";
-import { ChevronRight } from "lucide-react";
 import { Row } from "./rows";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { createFolder } from "@/server/actions";
-import { FileUploadButton } from "@/components/buttons";
 
 import { useViewStore } from "@/store/view";
 import { Card } from "@/components/ui/card";

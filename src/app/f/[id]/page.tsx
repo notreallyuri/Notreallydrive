@@ -1,13 +1,12 @@
 import DriveContents from "./drive-content";
 import { QUERIES } from "@/server/db/queries";
-import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { Navbar } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Plus } from "lucide-react";
-import { createFolder } from "@/server/actions";
+import { createFolder } from "@/server/_actions";
 import {
   Dialog,
   DialogTrigger,
@@ -24,14 +23,14 @@ export default async function GoogleDriveClone({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const session = await auth.api.getSession({ headers: await headers() });
+  // const session = await auth.api.getSession({ headers: await headers() });
   const resolvedParams = await params;
 
-  const user = session?.user;
+  // const user = session?.user;
 
-  if (!user) {
-    return <div>Unauthorized</div>;
-  }
+  // if (!user) {
+  //   return <div>Unauthorized</div>;
+  // }
 
   const [folders, files, parents, currentFolder] = await Promise.all([
     QUERIES.getFolders(resolvedParams.id),
@@ -40,7 +39,7 @@ export default async function GoogleDriveClone({
     QUERIES.getFolderById(resolvedParams.id),
   ]);
 
-  if (!currentFolder || currentFolder.ownerId !== user.id) {
+  if (!currentFolder) {
     return <div>Unauthorized</div>;
   }
 
