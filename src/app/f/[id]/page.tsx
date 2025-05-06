@@ -21,10 +21,8 @@ import { FileUploadButton } from "@/components/buttons";
 
 export default async function GoogleDriveClone({
   params,
-  children,
 }: {
   params: Promise<{ id: string }>;
-  children?: React.ReactNode;
 }) {
   const session = await auth.api.getSession({ headers: await headers() });
   const resolvedParams = await params;
