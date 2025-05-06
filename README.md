@@ -1,45 +1,35 @@
-# Drive Tutorial
+# 📄 Project Resume: Drive Tutorial
+### 🔹 Overview
+Drive Tutorial is a personal project by Yuri (@notreallyuri), designed as a clone of Google Drive with a modern tech stack. Inspired by Theo’s T3 Stack tutorial, it serves as an educational tool to explore scalable full-stack development practices.
 
-## TODO
+### 🔧 Tech Stack
+**Frontend**: React, Next.js, Tailwind CSS  
 
-- [x] Setup Datadabase and data model
-- [x] Move folder open state to URL
-- [x] Add Authentication
-- [x] Add uploadthing
-- [x] Add analytics
+**Backend**: Node.js, Drizzle ORM, PostgreSQL  
 
-## Note from 4-29-2024
+**Build Tools**: pnpm, TypeScript  
 
-### Finished connecting database, next steps:
+**CI/CD**: GitHub Actions  
 
-- [x] Update schema to show files and folders
-- [x] Manually insert examples
-- [x] Render them in the UI
-- [x] Push and make sure everything works
+**Deployment Target**: Vercel  
 
----
+**Utilities**: PostHog (analytics), UploadThing (file uploads)
+### 📁 Repository Highlights
+`.github/workflows/ci.yaml`: Defines CI pipeline for type checking and linting.  
 
-- [x] Change folder to link components, remove all client state
-- [x] Clean up the database and data fetching patterns
-- [x] Real homepage
+`src/`: Core application code.  
 
----
+`drizzle.config.ts`: Drizzle ORM configuration for PostgreSQL.  
 
-- [x] Add "ownershipt" to folders and files
-- [x] Upload files to the right folder
-- [x] Create sort order and enforce sort order
-- [x] Delete files button
-- [x] Allow files that aren't images to be uploaded
+`.env.example`: Reference for required environment variables.  
 
-## Note from 5-4-2025
-
-- [ ] Implement Folder deletion (Will need to think a little bit)
-- [x] Rework driver screen (Using shadcn tables)
-- [ ] Update homepage
-- [x] Visual implementation for folder/file deletion (Probably using a client-side hook)
-
-## Note from 5-6-2025
-
-- [x] Rename files & folders implemented
-- [ ] Add grid view to the driver screen
-- [ ] Add file preview (Will need to review a bit about the topic later)
+`package.json`: Project scripts and dependencies.
+### ✅ Current Status
+- Migrated to PostgreSQL for backend persistence.
+- Netlify configuration removed; preparing for Vercel deployment.
+- CI setup ensures stable development workflow.
+### 📌 Features
+- Clean, scalable codebase structured around modern best practices.
+- Type-safe ORM with Drizzle for database interactions.
+### 🗂️ Project Management
+All future development tasks and feature planning are tracked under the GitHub Projects tab.
