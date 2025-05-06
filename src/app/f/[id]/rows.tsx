@@ -26,7 +26,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { deleteFile, updateFile } from "@/server/actions";
+import { deleteFile, updateFile } from "@/server/_actions";
 import {
   Dialog,
   DialogContent,
@@ -79,10 +79,7 @@ function DeleteFileDialog({ fileId }: { fileId: string }) {
 }
 
 function UpdateFileDialog({ fileId }: { fileId: string }) {
-  const handleUpdate = async () => {
-    
-  }
-
+  const handleUpdate = async () => {};
 
   return (
     <Dialog>

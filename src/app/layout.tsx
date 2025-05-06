@@ -26,7 +26,7 @@ export default function RootLayout({
         <body>
           <ThemeProvider defaultTheme="system" attribute="class" enableSystem>
             {children}
-            <Toaster />
+            <Toaster swipeDirections={["bottom"]} />
           </ThemeProvider>
         </body>
       </html>
