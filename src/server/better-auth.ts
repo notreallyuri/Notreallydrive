@@ -45,4 +45,5 @@ export const auth = betterAuth({
     cookiePrefix: "drive_tutorial",
   },
   secret: env.BETTER_AUTH_SECRET,
+  trustedOrigins: [env.BASE_URL],
 });

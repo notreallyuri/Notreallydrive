@@ -1,10 +1,9 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import { MUTATIONS, QUERIES } from "@/server/db/queries";
-import type { File } from "@/types/file";
+import { auth } from "@/server/better-auth";
 import { headers } from "next/headers";
 import { z } from "zod";
-import { auth } from "@/lib/auth";
 
 const f = createUploadthing();
 
