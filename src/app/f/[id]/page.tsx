@@ -31,8 +31,6 @@ export default async function GoogleDriveClone(props: {
     return <div>Unauthorized</div>;
   }
 
-  // console.log("Params:", params);
-
   const [folders, files, parents, currentFolder] = await Promise.all([
     QUERIES.getFolders(params.id),
     QUERIES.getFiles(params.id),
