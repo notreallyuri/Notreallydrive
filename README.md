@@ -29,11 +29,17 @@
 - [x] Upload files to the right folder
 - [x] Create sort order and enforce sort order
 - [x] Delete files button
-- [ ] Allow files that aren't images to be uploaded
+- [x] Allow files that aren't images to be uploaded
 
 ## Note from 5-4-2025
 
 - [ ] Implement Folder deletion (Will need to think a little bit)
-- [ ] Rework driver screen (Using shadcn tables)
+- [x] Rework driver screen (Using shadcn tables)
 - [ ] Update homepage
-- [ ] Visual implementation for folder/file deletion (Probably using a client-side hook)
+- [x] Visual implementation for folder/file deletion (Probably using a client-side hook)
+
+## Note from 5-6-2025
+
+- [x] Rename files & folders implemented
+- [ ] Add grid view to the driver screen
+- [ ] Add file preview (Will need to review a bit about the topic later)
