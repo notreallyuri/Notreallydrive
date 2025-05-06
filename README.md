@@ -25,9 +25,13 @@ Drive Tutorial is a personal project by Yuri (@notreallyuri), designed as a clon
 
 `package.json`: Project scripts and dependencies.
 ### ✅ Current Status
-- Migrated to PostgreSQL for backend persistence.
-- Netlify configuration removed; preparing for Vercel deployment.
-- CI setup ensures stable development workflow.
+- File actions (upload, delete, move, etc.) fully implemented
+- Folder navigation via URL fully functional
+- Folder actions mostly complete (deletion logic in progress to handle recursive deletion)
+- UI nearly finalized
+- OAuth implemented and operational
+- Redis in use for session management
+- All database keys designed and active
 ### 📌 Features
 - Clean, scalable codebase structured around modern best practices.
 - Type-safe ORM with Drizzle for database interactions.
