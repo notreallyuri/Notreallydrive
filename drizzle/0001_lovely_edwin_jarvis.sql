@@ -1,0 +1,9 @@
+ALTER TABLE "drive_tutorial_files_table" ALTER COLUMN "parent_id" SET DATA TYPE uuid;--> statement-breakpoint
+ALTER TABLE "drive_tutorial_files_table" ALTER COLUMN "parent_id" SET NOT NULL;--> statement-breakpoint
+ALTER TABLE "drive_tutorial_folders_table" ALTER COLUMN "parent_id" SET DATA TYPE uuid;--> statement-breakpoint
+ALTER TABLE "drive_tutorial_files_table" ADD COLUMN "type" text NOT NULL;--> statement-breakpoint
+ALTER TABLE "drive_tutorial_files_table" ADD CONSTRAINT "drive_tutorial_files_table_owner_id_drive_tutorial_user_id_fk" FOREIGN KEY ("owner_id") REFERENCES "public"."drive_tutorial_user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "drive_tutorial_files_table" ADD CONSTRAINT "drive_tutorial_files_table_parent_id_drive_tutorial_folders_table_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."drive_tutorial_folders_table"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "drive_tutorial_folders_table" ADD CONSTRAINT "drive_tutorial_folders_table_owner_id_drive_tutorial_user_id_fk" FOREIGN KEY ("owner_id") REFERENCES "public"."drive_tutorial_user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "drive_tutorial_folders_table" ADD CONSTRAINT "drive_tutorial_folders_table_parent_id_drive_tutorial_folders_table_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."drive_tutorial_folders_table"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "drive_tutorial_folders_table" ADD CONSTRAINT "custom_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."drive_tutorial_folders_table"("id") ON DELETE no action ON UPDATE no action;

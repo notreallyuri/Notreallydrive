@@ -15,6 +15,9 @@ export const env = createEnv({
     DB_PORT: z.string(),
     DB_NAME: z.string(),
 
+    REDIS_URL: z.string().url(),
+    REDIS_TOKEN: z.string(),
+
     BETTER_AUTH_SECRET: z.string(),
 
     // Redirect URL
@@ -44,6 +47,10 @@ export const env = createEnv({
     DB_NAME: process.env.DB_NAME,
 
     BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
+
+    // Redis
+    REDIS_URL: process.env.REDIS_URL,
+    REDIS_TOKEN: process.env.REDIS_TOKEN,
 
     // Redirect URL
     REDIRECT_URL: process.env.OAUTH_REDIRECT_URL,

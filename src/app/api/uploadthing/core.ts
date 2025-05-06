@@ -1,6 +1,7 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import { MUTATIONS, QUERIES } from "@/server/db/queries";
+import type { File } from "@/types/file";
 import { headers } from "next/headers";
 import { z } from "zod";
 import { auth } from "@/lib/auth";
@@ -9,9 +10,9 @@ const f = createUploadthing();
 
 export const ourFileRouter = {
   fileUploader: f({
-    image: {
-      maxFileSize: "4MB",
-      maxFileCount: 1,
+    blob: {
+      maxFileSize: "64MB",
+      maxFileCount: 9999,
     },
   })
     .input(
@@ -29,9 +30,8 @@ export const ourFileRouter = {
       const folder = await QUERIES.getFolderById(input.folderId);
       if (!folder) throw new UploadThingError("Folder not found");
 
-      if (folder.ownerId !== user.id) {
+      if (folder.ownerId !== user.id)
         throw new UploadThingError("Unauthorized");
-      }
 
       return { userId: user.id, parentId: input.folderId };
     })
@@ -45,6 +45,7 @@ export const ourFileRouter = {
           size: file.size,
           url: file.ufsUrl,
           key: file.key,
+          type: file.type,
           parent: metadata.parentId,
         },
         userId: metadata.userId,

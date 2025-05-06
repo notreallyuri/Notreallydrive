@@ -1,7 +1,8 @@
 import "@/styles/globals.css";
 
 import { PostHogProvider } from "./_providers/posthog-provider";
-import { Geist } from "next/font/google";
+import { ThemeProvider } from "./_providers/theme-provider";
+import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -11,9 +12,9 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-const geist = Geist({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  variable: "--font-inter-sans",
 });
 
 export default function RootLayout({
@@ -21,10 +22,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <PostHogProvider>
-      <html lang="en" className={`${geist.variable}`}>
+      <html lang="en" className={`${inter.variable}`} suppressHydrationWarning>
         <body>
-          {children}
-          <Toaster />
+          <ThemeProvider defaultTheme="system" attribute="class" enableSystem>
+            {children}
+            <Toaster />
+          </ThemeProvider>
         </body>
       </html>
     </PostHogProvider>

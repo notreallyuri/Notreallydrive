@@ -13,9 +13,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { authClient } from "@/lib/auth-client";
-import { toast } from "sonner";
-import { z } from "zod";
 import { useState } from "react";
+import { z } from "zod";
 
 const SignInSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -26,7 +25,9 @@ type SignInSchemaType = z.infer<typeof SignInSchema>;
 
 export function SignIn() {
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null | undefined>(
+    null,
+  );
 
   const form = useForm({
     resolver: zodResolver(SignInSchema),
@@ -42,11 +43,10 @@ export function SignIn() {
     });
 
     if (error) {
-      toast.error(error.message);
+      setErrorMessage(error.message);
       return;
     }
 
-    toast.success("Signed in successfully!");
     router.push("/redirect");
   };
 

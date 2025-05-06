@@ -7,21 +7,22 @@ export default function HomePage() {
     <div
       className={cn(
         "flex min-h-screen flex-col items-center justify-center p-4",
-        "bg-gradient-to-br from-black via-neutral-900 to-neutral-800",
       )}
     >
       <main className="text-center">
-        <h1 className="mb-4 bg-gradient-to-r from-neutral-200 to-neutral-300 bg-clip-text text-5xl font-bold text-transparent md:text-6xl">
+        <h1
+          className={cn(
+            "mb-4 bg-clip-text text-5xl font-bold text-transparent md:text-6xl",
+            "bg-gradient-to-r from-neutral-800 to-neutral-600",
+            "dark:from-gray-500 dark:to-gray-400",
+          )}
+        >
           NotreallyDrive
         </h1>
-        <p className="mx-auto mb-8 max-w-md text-neutral-400">
+        <p className="text-muted-foreground mx-auto mb-8 max-w-md">
           Secure, fast and easy file storage for modern web
         </p>
-        <Button
-          asChild
-          size="lg"
-          className="bg-neutral border border-neutral-700 text-white hover:bg-neutral-700"
-        >
+        <Button asChild size="lg" variant="outline">
           <Link href={{ pathname: "/auth", query: { tab: "signup" } }}>
             Get Started
           </Link>

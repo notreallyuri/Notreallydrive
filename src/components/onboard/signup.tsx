@@ -13,9 +13,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { z } from "zod";
 import { useState } from "react";
+import { z } from "zod";
 
 const SignUpSchema = z
   .object({
@@ -58,11 +57,9 @@ export function SignUp() {
 
     if (error) {
       setErrorMessage(error.message);
-      toast.error(error.message);
       return;
     }
 
-    toast.success("Check your email for the confirmation link!");
     router.push("/redirect");
   };
 
