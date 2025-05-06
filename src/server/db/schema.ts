@@ -6,13 +6,14 @@ import {
   integer,
   uuid,
   boolean,
+  pgTable,
   type AnyPgColumn,
   foreignKey,
 } from "drizzle-orm/pg-core";
 
 export const createTable = pgTableCreator((name) => `drive_tutorial_${name}`);
 
-export const files_table = createTable(
+export const files_table = pgTable(
   "files_table",
   {
     id: uuid("id").defaultRandom().primaryKey(),
@@ -39,7 +40,7 @@ export const files_table = createTable(
   },
 );
 
-export const folders_tables = createTable(
+export const folders_tables = pgTable(
   "folders_table",
   {
     id: uuid("id").defaultRandom().primaryKey(),
@@ -66,7 +67,7 @@ export const folders_tables = createTable(
   },
 );
 
-export const user = createTable("user", {
+export const user = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
@@ -76,7 +77,7 @@ export const user = createTable("user", {
   updatedAt: timestamp("updated_at").notNull(),
 });
 
-export const account = createTable("account", {
+export const account = pgTable("account", {
   id: text("id").primaryKey(),
   accountId: text("account_id").notNull(),
   providerId: text("provider_id").notNull(),
@@ -94,7 +95,7 @@ export const account = createTable("account", {
   updatedAt: timestamp("updated_at").notNull(),
 });
 
-export const verification = createTable("verification", {
+export const verification = pgTable("verification", {
   id: text("id").primaryKey(),
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),

@@ -27,13 +27,9 @@ export const deleteFile = async (id: string) => {
     return { error: "File not found" };
   }
 
-  const utRes = await utApi.deleteFiles([file.key]);
+  await utApi.deleteFiles([file.key]);
 
-  console.log(utRes);
-
-  const dbRes = await db.delete(files_table).where(eq(files_table.id, id));
-
-  console.log(dbRes);
+  await db.delete(files_table).where(eq(files_table.id, id));
 
   const c = await cookies();
   c.set("force-refresh", JSON.stringify(Math.random()));

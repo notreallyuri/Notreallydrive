@@ -39,8 +39,22 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
 function DeleteFileDialog({ fileId }: { fileId: string }) {
+  const handleDelete = async () => {
+    toast.loading("Deleting file...");
+
+    const res = await deleteFile(fileId);
+
+    if (res.error) {
+      toast.error("Error deleting file");
+    } else {
+      toast.dismiss();
+      toast.success("File deleted successfully");
+    }
+  };
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -57,13 +71,7 @@ function DeleteFileDialog({ fileId }: { fileId: string }) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction
-            onClick={() => {
-              deleteFile(fileId);
-            }}
-          >
-            Delete
-          </AlertDialogAction>
+          <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
@@ -71,6 +79,11 @@ function DeleteFileDialog({ fileId }: { fileId: string }) {
 }
 
 function UpdateFileDialog({ fileId }: { fileId: string }) {
+  const handleUpdate = async () => {
+    
+  }
+
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -170,8 +183,12 @@ export function Row(props: { folder?: Folder; file?: File }) {
                 </DropdownMenuLabel>
                 <DropdownMenuGroup>
                   <UpdateFileDialog fileId={file.id} />
-                  <DropdownMenuItem onSelect={() => console.log("Download")}>
-                    Download
+                  <DropdownMenuItem asChild>
+                    <a
+                      href={`/api/download?url=${encodeURIComponent(file.url)}&name=${encodeURIComponent(file.name)}`}
+                    >
+                      Download
+                    </a>
                   </DropdownMenuItem>
 
                   <DeleteFileDialog fileId={file.id} />

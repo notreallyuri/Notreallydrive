@@ -19,11 +19,15 @@ import {
 } from "@/components/ui/dialog";
 import { FileUploadButton } from "@/components/buttons";
 
-export default async function GoogleDriveClone(props: {
+export default async function GoogleDriveClone({
+  params,
+  children,
+}: {
   params: Promise<{ id: string }>;
+  children?: React.ReactNode;
 }) {
   const session = await auth.api.getSession({ headers: await headers() });
-  const params = await props.params;
+  const resolvedParams = await params;
 
   const user = session?.user;
 
@@ -32,10 +36,10 @@ export default async function GoogleDriveClone(props: {
   }
 
   const [folders, files, parents, currentFolder] = await Promise.all([
-    QUERIES.getFolders(params.id),
-    QUERIES.getFiles(params.id),
-    QUERIES.getCurrentParents(params.id),
-    QUERIES.getFolderById(params.id),
+    QUERIES.getFolders(resolvedParams.id),
+    QUERIES.getFiles(resolvedParams.id),
+    QUERIES.getCurrentParents(resolvedParams.id),
+    QUERIES.getFolderById(resolvedParams.id),
   ]);
 
   if (!currentFolder || currentFolder.ownerId !== user.id) {
@@ -44,43 +48,12 @@ export default async function GoogleDriveClone(props: {
 
   return (
     <>
-      <Navbar parents={parents} />
-
-      <main className="space-y-4 p-4">
-        <div className="flex w-full justify-end gap-4">
-          <FileUploadButton currentFolderId={currentFolder.id} />
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline">
-                <Plus />
-                Create Folder
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Create Folder</DialogTitle>
-              </DialogHeader>
-              <form action={createFolder} className="space-y-4">
-                <Label htmlFor="name" className="font-medium">
-                  Folder Name
-                </Label>
-                <Input name="name" id="name" required />
-
-                <input type="hidden" name="parent" value={params.id} />
-
-                <DialogFooter className="mt-2">
-                  <DialogClose asChild>
-                    <Button type="submit">Create</Button>
-                  </DialogClose>
-                </DialogFooter>
-              </form>
-            </DialogContent>
-          </Dialog>
-        </div>
+      <Navbar parents={parents} currentFolder={currentFolder} />
+      <main className="p-4">
         <DriveContents
           files={files}
           folders={folders}
-          currentFolderId={params.id}
+          currentFolderId={currentFolder.id}
         />
       </main>
     </>
