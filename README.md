@@ -1,4 +1,4 @@
-# 📄 Project Resume: Drive Tutorial
+# 📄 Project Resume: Notreallydrive
 ### 🔹 Overview
 Drive Tutorial is a personal project by Yuri (@notreallyuri), designed as a clone of Google Drive with a modern tech stack. Inspired by Theo’s T3 Stack tutorial, it serves as an educational tool to explore scalable full-stack development practices.
 
